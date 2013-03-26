@@ -7,6 +7,8 @@ from gevent.queue import Queue
 import tween
 import random
 import time
+import simplejson as json
+import event
     
 HOST = 'localhost'
 PORT = 5007
@@ -24,9 +26,10 @@ def network():
     s.connect((HOST, PORT))
     while True:
         data = s.recv(1024)
-        if data == 'event' :
+        data_struct = json.loads(data)
+        if data_struct["id"] == 1:
             randis = random.random()*0.0025
-            print randis
+            #print randis
             gevent.sleep(randis)
             tasks.put_nowait(data)
         gevent.sleep(0)
