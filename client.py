@@ -26,12 +26,14 @@ def network():
     s.connect((HOST, PORT))
     while True:
         data = s.recv(1024)
+        #print 'data: ', data
         data_struct = json.loads(data)
+        #print 'datastruct: ', data_struct
         if data_struct["id"] == 1:
             randis = random.random()*0.0025
             #print randis
             gevent.sleep(randis)
-            tasks.put_nowait(data)
+            tasks.put_nowait(data_struct)
         gevent.sleep(0)
     s.close()
 
@@ -46,8 +48,13 @@ def render():
         if event.type == pygame.QUIT:
             running = 0
         if not tasks.empty():
+            # Compare datatypes here
             data = tasks.get()
-            color_animation.play(50, 250, 200.0, True, timestamp=pygame.time.get_ticks())
+            if data["data_id"] == 1:
+                color_animation.play(50, 250, 200.0, True, timestamp=pygame.time.get_ticks())
+            if data["data_id"] == 2:
+                pos = (data["data_val"][0] - rect.left, data["data_val"][1]-rect.top)
+                rect = rect.move(pos)
         if color_animation.running:
             color_animation.step(pygame.time.get_ticks())
             if int(color_animation.value) <= 255:
