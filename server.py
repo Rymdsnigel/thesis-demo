@@ -8,7 +8,8 @@ from gevent.event import AsyncResult
 import event
 import simplejson as json
 
-b = Event()
+render_event = Event()
+response_event = Event()
 EVENT = "abs"
 #b.clear()
 
@@ -27,13 +28,21 @@ pygame.init()
 
 
 # Handle connection
-def handler(conn):
+def write_handler(conn):
     while True:
-        b.wait(timeout=10000)
-        #print 'sending event: ', EVENT
+        render_event.wait(timeout=10000)
         conn.sendall(EVENT)
+        response_event.set()
+        response_event.clear()
         gevent.sleep(0)
     conn.close()
+
+def read_handler(conn):
+    while True:
+        response_event.wait(timeout=10000)
+        data = conn.recv(1024)     #recieving response from client
+        print data                 #dosomething with response -> future = compare timestamps
+        gevent.sleep(0)
 
 # Handle pygame-inputs
 def renderloop():
@@ -46,15 +55,15 @@ def renderloop():
         if e.type == pygame.MOUSEBUTTONDOWN:
             server_event = event.ServerEvent(id=1,channel=1,data_id=1,data_val=1, timestamp=pygame.time.get_ticks())
             EVENT = json.dumps(server_event.__dict__)
-            b.set()
-            b.clear()
+            render_event.set()
+            render_event.clear()
         if e.type == pygame.MOUSEMOTION:
             if pygame.mouse.get_pressed()[2]:
                 pos = pygame.mouse.get_pos()
                 move_event = event.ServerEvent(id=1, channel=1, data_id=2, data_val=pos, timestamp=pygame.time.get_ticks())
                 EVENT = json.dumps(move_event.__dict__)
-                b.set()
-                b.clear()
+                render_event.set()
+                render_event.clear()
         screen.fill((0, 0, 0))
         pygame.display.flip()
         gevent.sleep(0)
@@ -64,7 +73,8 @@ try:
     gevent.spawn(renderloop)
     while True:
         conn, addr = s.accept()
-        gevent.spawn(handler, conn)
+        gevent.spawn(write_handler, conn)
+        gevent.spawn(read_handler, conn)
         gevent.sleep(0)
 except Exception as e:
     print e.message

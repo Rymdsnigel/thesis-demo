@@ -26,12 +26,12 @@ def network():
     s.connect((HOST, PORT))
     while True:
         data = s.recv(1024)
-        #print 'data: ', data
+        client_reply = event.ClientResponse(event_id=1, client_id=1, state=1, timestamp=pygame.time.get_ticks())
+        EVENT = json.dumps(client_reply.__dict__)
+        s.send(EVENT)
         data_struct = json.loads(data)
-        #print 'datastruct: ', data_struct
         if data_struct["id"] == 1:
             randis = random.random()*0.0025
-            #print randis
             gevent.sleep(randis)
             tasks.put_nowait(data_struct)
         gevent.sleep(0)
