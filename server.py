@@ -8,7 +8,7 @@ import event
 
 render_event = Event()
 response_event = Event()
-EVENT = "abs"
+EVENT = ""
 
 # Socket settings
 HOST = ''
@@ -23,7 +23,7 @@ pygame.display.set_caption("server generating events")
 pygame.init()
 
 
-# Handle connection
+# Handle sending data
 def write_handler(conn, client_id):
     id_msg = event.client_info(id=client_id, timestamp=pygame.time.get_ticks())
     conn.sendall(id_msg)
@@ -35,6 +35,7 @@ def write_handler(conn, client_id):
         gevent.sleep(0)
     conn.close()
 
+# Handle reading data
 def read_handler(conn, client_id):
     while True:
         response_event.wait(timeout=10000)

@@ -8,8 +8,9 @@ import tween
 import random
 import time
 import simplejson as json
-#import event as myevent
-    
+import event
+
+
 HOST = 'localhost'
 PORT = 5007
 
