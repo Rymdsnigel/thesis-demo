@@ -1,20 +1,27 @@
+import simplejson as json
 
+class Event(object):
 
-class ServerEvent(object):
+    def server_event(self, id, channel, data_id, data_val, timestamp, reserved=None):
+        return json.dumps({
+        "id": id,
+        "channel" : channel,
+        "data_id" : data_id,
+        "data_val" : data_val,
+        "timestamp" : timestamp,
+        "reserved" : reserved
+        })
 
-    def __init__(self, id, channel, data_id, data_val, timestamp, reserved=None):
-        self.id = id
-        self.channel = channel
-        self.data_id = data_id
-        self.data_val = data_val
-        self.timestamp = timestamp
-        self.reserved = reserved
+    def client_response(self, event_id, timestamp, client_id, state):
+        return json.dumps({
+        "event_id" : event_id,
+        "timestamp" : timestamp,
+        "client_id" : client_id,
+        "state" : state
+        })
 
-
-class ClientResponse(object):
-
-    def __init__(self, event_id, timestamp, client_id, state):
-        self.event_id = event_id
-        self.timestamp = timestamp
-        self.client_id = client_id
-        self.state = state
+    def client_info(self, id, timestamp):
+        return json.dumps({
+        "id" : id,
+        "timestamp" : timestamp
+        })

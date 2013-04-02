@@ -4,14 +4,13 @@ import pygame
 import gevent
 from gevent import socket
 from gevent.event import Event
-from gevent.event import AsyncResult
 import event
-import simplejson as json
 
 render_event = Event()
 response_event = Event()
 EVENT = "abs"
-#b.clear()
+
+server_event = event.Event()
 
 # Socket settings
 HOST = ''
@@ -26,9 +25,10 @@ pygame.display.set_caption("server generating events")
 pygame.init()
 
 
-
 # Handle connection
 def write_handler(conn):
+    #id_msg = event.ClientInfo(id='testsnigel')
+    conn.sendall("fisktest")
     while True:
         render_event.wait(timeout=10000)
         conn.sendall(EVENT)
@@ -53,15 +53,13 @@ def renderloop():
         if e.type == pygame.QUIT:
             break
         if e.type == pygame.MOUSEBUTTONDOWN:
-            server_event = event.ServerEvent(id=1,channel=1,data_id=1,data_val=1, timestamp=pygame.time.get_ticks())
-            EVENT = json.dumps(server_event.__dict__)
+            EVENT = server_event.server_event(id=1,channel=1,data_id=1,data_val=1, timestamp=pygame.time.get_ticks())
             render_event.set()
             render_event.clear()
         if e.type == pygame.MOUSEMOTION:
             if pygame.mouse.get_pressed()[2]:
                 pos = pygame.mouse.get_pos()
-                move_event = event.ServerEvent(id=1, channel=1, data_id=2, data_val=pos, timestamp=pygame.time.get_ticks())
-                EVENT = json.dumps(move_event.__dict__)
+                EVENT = server_event.server_event(id=1, channel=1, data_id=2, data_val=pos, timestamp=pygame.time.get_ticks())
                 render_event.set()
                 render_event.clear()
         screen.fill((0, 0, 0))

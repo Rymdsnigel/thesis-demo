@@ -19,15 +19,18 @@ pygame.display.set_caption("client rendering graphics")
 pygame.init()
 
 tasks = Queue()
+id = ''
+client_response = event.Event()
 
 # Connect to server
 def network():
     s = gevent.socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     s.connect((HOST, PORT))
+    global id
+    id = s.recv(1024)
     while True:
         data = s.recv(1024)
-        client_reply = event.ClientResponse(event_id=1, client_id=1, state=1, timestamp=pygame.time.get_ticks())
-        EVENT = json.dumps(client_reply.__dict__)
+        EVENT = client_response.client_response(event_id=1, client_id=1, state=1, timestamp=pygame.time.get_ticks())
         s.send(EVENT)
         data_struct = json.loads(data)
         if data_struct["id"] == 1:
