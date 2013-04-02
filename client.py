@@ -8,7 +8,7 @@ import tween
 import random
 import time
 import simplejson as json
-import event
+#import event as myevent
     
 HOST = 'localhost'
 PORT = 5007
@@ -20,22 +20,22 @@ pygame.init()
 
 tasks = Queue()
 id = ''
-client_response = event.Event()
 
 # Connect to server
 def network():
     s = gevent.socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     s.connect((HOST, PORT))
     global id
-    id = s.recv(1024)
+    id = json.loads(s.recv(1024))["client_id"]
+    print id
     while True:
         data = s.recv(1024)
-        EVENT = client_response.client_response(event_id=1, client_id=1, state=1, timestamp=pygame.time.get_ticks())
+        EVENT = event.client_response(event_id=1, client_id=1, state=1, timestamp=pygame.time.get_ticks())
         s.send(EVENT)
         data_struct = json.loads(data)
         if data_struct["id"] == 1:
-            randis = random.random()*0.0025
-            gevent.sleep(randis)
+            #randis = random.random()*0.0025
+            #gevent.sleep(randis)
             tasks.put_nowait(data_struct)
         gevent.sleep(0)
     s.close()
