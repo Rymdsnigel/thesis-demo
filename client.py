@@ -27,16 +27,24 @@ def network():
     s = gevent.socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     s.connect((HOST, PORT))
     global id
-    id = json.loads(s.recv(1024))["client_id"]
-    print id
+    running = 0
+    while True:
+        running += 1
+        if running >= 10:
+            break
+        from_server = json.loads(s.recv(1024))
+        print from_server
+        timestamp = from_server["timestamp"]
+        s.sendall(event.client_info(id, timestamp=timestamp, delta=1))
+        id = from_server["client_id"]
+
+
     while True:
         data = s.recv(1024)
         EVENT = event.client_response(event_id=1, client_id=1, state=1, timestamp=pygame.time.get_ticks())
         s.send(EVENT)
         data_struct = json.loads(data)
         if data_struct["id"] == 1:
-            #randis = random.random()*0.0025
-            #gevent.sleep(randis)
             tasks.put_nowait(data_struct)
         gevent.sleep(0)
     s.close()

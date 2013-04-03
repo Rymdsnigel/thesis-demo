@@ -19,8 +19,10 @@ def client_response(event_id, timestamp, client_id, state):
     "state" : state
     })
 
-def client_info(id, timestamp):
+def client_info(id, timestamp, delta):
     return json.dumps({
     "client_id" : id,
-    "timestamp" : timestamp
+    "timestamp" : timestamp,
+    "delta" : delta
+
     })
