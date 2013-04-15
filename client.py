@@ -1,12 +1,37 @@
-# -*- coding: utf-8 -*-
-# Client rendering graphics
+#-*- coding: utf-8 -*-
+"""
+Client rendering graphics
+
+Usage:
+  client.py [--port=<nr>]
+  client.py (-h | --help)
+  client.py --version
+
+Options:
+  -h --help     Show this screen.
+  --version     Show version.
+  --framerate
+  --port=<nr>   Port number to bind to client [default: 5007].
+
+
+"""
 import pygame
 import gevent
 from gevent.queue import Queue
 import math
+import logging
+from docopt import docopt
 import tween
 from implementations.ntpversion import NTPClient as Client
 
+
+logger = logging.getLogger('test')
+logger.setLevel(logging.DEBUG)
+ch = logging.FileHandler(filename='synclog.log')
+ch.setLevel(logging.DEBUG)
+formatter = logging.Formatter('%(asctime)s - %(levelname)s - %(message)s')
+ch.setFormatter(formatter)
+logger.addHandler(ch)
 
 HOST = 'localhost'
 PORT = 5007
@@ -31,14 +56,13 @@ def render(client):
             running = 0
         if not tasks.empty():
             data = tasks.get()
-            print "renderevent: ", data
             if data["data_id"] == 1:
-                color_animation.play(50, 250, 200.0, True, timestamp=pygame.time.get_ticks())
+                color_animation.play(50, 250, 200.0, True, timestamp=client.get_tick())
             if data["data_id"] == 2:
                 pos = (data["data_val"][0] - rect.left, 0)
                 rect = rect.move(pos)
         if color_animation.running:
-            color_animation.step(pygame.time.get_ticks())
+            color_animation.step(client.get_tick())
             if int(color_animation.value) <= 255:
                 color.b = int(color_animation.value)
 
@@ -50,11 +74,13 @@ def render(client):
         pygame.display.flip()
         gevent.sleep(0)
 
-client = Client(HOST, PORT, tasks)
-client.start()
-gevent.joinall([
-    client,
-    gevent.spawn(render, client)
-])
+if __name__ == '__main__':
+    arguments = docopt(__doc__, version='Client 0.1')
+    client = Client(HOST, PORT, tasks, int(arguments["--port"]))
+    client.start()
+    gevent.joinall([
+        client,
+        gevent.spawn(render, client)
+    ])
 
-pygame.quit()
+    pygame.quit()

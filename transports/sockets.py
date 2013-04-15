@@ -18,10 +18,10 @@ class ServerTransport(gevent.Greenlet):
         while True:
             if not self.queue.empty():
                 evnt = self.queue.get()
-                self.conn.sendall(json.dumps(evnt))            # write event to connection
+                self.conn.sendall(json.dumps(evnt)+"\n")            # write event to connection
                 if evnt["event_type"] == 1:
-                    data = self.conn.recv(1024)                    # wait read
-                    self.handle_response(data)                     # handle data
+                    data = self.conn.recv(1024)                     # wait read
+                    self.handle_response(data)                      # handle data
             gevent.sleep(0)
         self.conn.close()
 
@@ -49,6 +49,12 @@ class SocketServer(object):
         for client in self.pool:
             client.add_event(event)
 
+    def calculate_max_latency(self):            #todo borde ligga med resten av synchroniseringen
+        latencies = [x.latency for x in self.pool]
+        max_latency = max(latencies)
+        for x in self.pool:
+            x.max_latency = max_latency
+
     def serve_forever(self):
         self.s = gevent.socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.s.bind((self.host, self.port))
@@ -64,22 +70,29 @@ class SocketServer(object):
 
 class ClientTransport(gevent.Greenlet):
 
-    def __init__(self, host, port, queue):
+    def __init__(self, host, port, queue, client_port=5007):
         gevent.Greenlet.__init__(self)
         self.host = host
         self.port = port
         self.queue = queue
         self.delta = 0
+        self.client_port = int(client_port)
+        self.client_id = None
 
     # Connect to server
     def _run(self):
         self.s = gevent.socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        self.s.bind(('', self.client_port))
         self.s.connect((self.host, self.port))
+
         while True:
-            data = self.s.recv(1024)
+            data = self.s.recv(1024) #bugg: 2 meddelanden
             self.handle_incoming(data)
             gevent.sleep(0)
         self.s.close()
+
+    def send_packet(self, data):
+        self.s.sendall(json.dumps(data))
 
     def handle_incoming(self, data):
         raise "not implemented"

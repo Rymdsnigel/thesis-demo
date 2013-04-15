@@ -1,8 +1,14 @@
+#encoding: utf8
 import simplejson as json
 import pygame
+from simplejson.decoder import JSONDecodeError
+import gevent
+import logging
 import event
-#from transports.sockets import Server
 from transports.sockets import ServerTransport, ClientTransport
+
+max_latency = 0         #todo: om latencyn är för stor så ska klienten hoppa ifatt i animationen ist
+logger = logging.getLogger('test')
 
 class NTPServer(ServerTransport):
     # From NTP:
@@ -13,46 +19,76 @@ class NTPServer(ServerTransport):
 
     def send_synchronize(self):
         self.t_0 = pygame.time.get_ticks()      #todo: this is not the actual time we send this, just the time we put it on the queue
-        print "t_0: ", self.t_0
-        self.queue.put(event.create_sync_event(self.client_id, self.t_0, delta=self.delta))
+        self.queue.put(event.create_sync_event(self.t_0, delta=self.delta))
+
+    def send_latency(self, latency, max_latency):
+        self.queue.put(event.create_latency_update_event(latency, max_latency))
+
+    def send_handshake(self):
+        self.queue.put(event.create_handshake(self.client_id))
 
     def handle_synchronize_response(self, data):
+        global max_latency
         self.t_3 = pygame.time.get_ticks()
         self.t_1 = data["recieved_at"]
         self.t_2 = data["sent_at"]
-        print "t_3: ", self.t_3
-        print "t_2: ", self.t_2
-        print "t_1: ", self.t_1
         self.delta = ((self.t_1 - self.t_0) + (self.t_2 - self.t_3))/2
         client_delta = data["delta"]
         if client_delta == 0:       # or client delta differs to much from self.delta
             self.send_synchronize()
-        print self.delta
+        self.latency = (self.t_3 - self.t_0)/2
+        if self.latency > max_latency:
+            max_latency = self.latency
+        self.send_latency(self.latency,max_latency)
 
     def handle_response(self, data):
         data = json.loads(data)
         if data["event_type"] == 1:
             self.handle_synchronize_response(data)
+        elif data["event_type"] == 4:
+            self.resolution = data["resolution"]
         else:
-            print data
+            pass
 
 class NTPClient(ClientTransport):
 
     def handle_incoming(self, data):
-        data_struct = json.loads(data)
-        if data_struct["event_type"] == 1:
-            self.handle_synchronize(data_struct)
-        else:
-            print 'inte syncevent'
-            self.queue.put_nowait(data_struct)
+        data_list = data.split("\n")
+        for item in data_list:
+            try:
+                data_struct = json.loads(item)
+                if data_struct["event_type"] == 1:
+                    self.handle_synchronize(data_struct)
+                elif data_struct["event_type"] == 0:
+                    self.handle_latency(data_struct)
+                elif data_struct["event_type"] == 3:
+                    self.handle_handshake(data_struct)
+                else:
+                    self.handle_render_event(data_struct)
+            except JSONDecodeError as e:
+                print e
 
     def handle_synchronize(self, data):
         t_1 = pygame.time.get_ticks() # todo: edit actual message to get more exact time
-        # sleep here to emulate processing
+        # todo sleep here to emulate processing
         self.delta = data["delta"]
         t_2 = pygame.time.get_ticks()
-        evnt = event.create_sync_event(data["client_id"], t_1, t_2, self.delta)
-        self.s.sendall(json.dumps(evnt))
+        evnt = event.create_sync_event(t_1, t_2, self.delta)
+        self.send_packet(evnt)
+
+    def handle_latency(self, data):
+        self.latency = data["latency"]
+        self.max_latency = data["max_latency"]
+        self.applied_latency = self.max_latency - self.latency
+
+    def handle_handshake(self, data):
+        self.client_id = data["client_id"]
+        logger.handlers[0].setFormatter(logging.Formatter('%(asctime)s - %(levelname)s - ' + str(self.client_id) + '- %(message)s'))
+        self.send_packet(event.create_shakeback(100)) #todo should be actual resolution
+
+    def handle_render_event(self, data):
+        gevent.sleep(self.applied_latency/1000.0)
+        self.queue.put_nowait(data)
 
     def get_tick(self):
-        return pygame.time.get_ticks() - self.delta #delta negative
+        return pygame.time.get_ticks() - self.delta     # minus because delta negative
