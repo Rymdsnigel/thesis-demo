@@ -43,13 +43,14 @@ PORT = 5007
 tasks = Queue()
 id = ''
 
-# Setup pygame
-screen = pygame.display.set_mode((300,300))
-pygame.display.set_caption("client rendering graphics")
-pygame.init()
+
 
 # Render
 def render(client):
+# Setup pygame
+    screen = pygame.display.set_mode((client.width,client.height))
+    pygame.display.set_caption("client rendering graphics")
+    pygame.init()
     running = 1
     color = pygame.Color(100, 110, 50)
     rect = pygame.Rect(125, 125, 50, 50)
