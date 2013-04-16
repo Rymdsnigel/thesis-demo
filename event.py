@@ -27,6 +27,13 @@ def create_shakeback(resolution):
         "resolution" : resolution
     }
 
+def create_estate_event(pos):
+
+    return {
+        "event_type" : 5,
+        "pos" : pos
+    }
+
 def create_sync_event(id, recieved_at=None, sent_at=None, delta=None):
     return {
         "event_type" : 1,

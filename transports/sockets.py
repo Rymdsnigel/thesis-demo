@@ -70,12 +70,15 @@ class SocketServer(object):
 
 class ClientTransport(gevent.Greenlet):
 
-    def __init__(self, host, port, queue, client_port=5007):
+    def __init__(self, host, port, queue, framerate, width, height, client_port=5007):
         gevent.Greenlet.__init__(self)
         self.host = host
         self.port = port
         self.queue = queue
         self.delta = 0
+        self.framerate  = framerate
+        self.height = height
+        self.width = width
         self.client_port = int(client_port)
         self.client_id = None
 
@@ -86,7 +89,7 @@ class ClientTransport(gevent.Greenlet):
         self.s.connect((self.host, self.port))
 
         while True:
-            data = self.s.recv(1024) #bugg: 2 meddelanden
+            data = self.s.recv(1024)
             self.handle_incoming(data)
             gevent.sleep(0)
         self.s.close()

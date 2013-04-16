@@ -4,15 +4,19 @@ Client rendering graphics
 
 Usage:
   client.py [--port=<nr>]
+            [--framerate=<frame/s>]
+            [--x=<pixels>]
+            [--y=<pixels>]
   client.py (-h | --help)
   client.py --version
 
 Options:
   -h --help     Show this screen.
   --version     Show version.
-  --framerate
   --port=<nr>   Port number to bind to client [default: 5007].
-
+  --framerate=<frame/s> Client framerate [default: 1000].
+  --x=<pixels> Width of client screen [default: 300].
+  --y=<pixels> Height of client screen [default: 300].
 
 """
 import pygame
@@ -36,13 +40,13 @@ logger.addHandler(ch)
 HOST = 'localhost'
 PORT = 5007
 
-# Setup pygame
-screen = pygame.display.set_mode((300, 300))
-pygame.display.set_caption("client rendering graphics")
-pygame.init()
-
 tasks = Queue()
 id = ''
+
+# Setup pygame
+screen = pygame.display.set_mode((300,300))
+pygame.display.set_caption("client rendering graphics")
+pygame.init()
 
 # Render
 def render(client):
@@ -56,16 +60,15 @@ def render(client):
             running = 0
         if not tasks.empty():
             data = tasks.get()
-            if data["data_id"] == 1:
+            if data["data_id"] == 1: #do the coloranimation
                 color_animation.play(50, 250, 200.0, True, timestamp=client.get_tick())
-            if data["data_id"] == 2:
-                pos = (data["data_val"][0] - rect.left, 0)
+            if data["data_id"] == 2: #change position
+                pos = (((data["data_val"][0])*300) - rect.left, 0)
                 rect = rect.move(pos)
         if color_animation.running:
             color_animation.step(client.get_tick())
             if int(color_animation.value) <= 255:
                 color.b = int(color_animation.value)
-
         val = ((1 + math.cos(client.get_tick()/250.0))/2)*250
         pos = (0, val - rect.top)
         rect = rect.move(pos)
@@ -76,7 +79,7 @@ def render(client):
 
 if __name__ == '__main__':
     arguments = docopt(__doc__, version='Client 0.1')
-    client = Client(HOST, PORT, tasks, int(arguments["--port"]))
+    client = Client(HOST, PORT, tasks, int(arguments["--framerate"]), int(arguments["--x"]), int(arguments["--y"]), int(arguments["--port"]))
     client.start()
     gevent.joinall([
         client,

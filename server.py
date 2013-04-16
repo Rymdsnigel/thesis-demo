@@ -24,8 +24,9 @@ def renderloop(server):
             server.broadcast(EVENT)
         if e.type == pygame.MOUSEMOTION:
             if pygame.mouse.get_pressed()[2]:
-                pos = pygame.mouse.get_pos()
-                EVENT = event.create_render_event(id=1, channel=1, data_id=2, data_val=pos, timestamp=pygame.time.get_ticks())
+                (xpos, ypos) = pygame.mouse.get_pos()
+                normalized_pos = ((xpos/300.0), (ypos/300.0))
+                EVENT = event.create_render_event(id=1, channel=1, data_id=2, data_val=normalized_pos, timestamp=pygame.time.get_ticks())
                 server.broadcast(EVENT)
         screen.fill((0, 0, 0))
         pygame.display.flip()

@@ -27,6 +27,10 @@ class NTPServer(ServerTransport):
     def send_handshake(self):
         self.queue.put(event.create_handshake(self.client_id))
 
+    def send_estate(self, pos):
+        self.queue.put(event.create_estate_event(pos))
+
+
     def handle_synchronize_response(self, data):
         global max_latency
         self.t_3 = pygame.time.get_ticks()
@@ -47,6 +51,8 @@ class NTPServer(ServerTransport):
             self.handle_synchronize_response(data)
         elif data["event_type"] == 4:
             self.resolution = data["resolution"]
+            # todo calculate new pos
+            self.send_estate((0.5, 0,5))
         else:
             pass
 
@@ -63,6 +69,9 @@ class NTPClient(ClientTransport):
                     self.handle_latency(data_struct)
                 elif data_struct["event_type"] == 3:
                     self.handle_handshake(data_struct)
+                elif data_struct["event_type"] == 5:
+                    self.width = data_struct["pos"][0]
+                    self.height = data_struct["pos"][1]
                 else:
                     self.handle_render_event(data_struct)
             except JSONDecodeError as e:
