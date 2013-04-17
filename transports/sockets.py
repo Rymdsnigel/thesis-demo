@@ -70,7 +70,7 @@ class SocketServer(object):
 
 class ClientTransport(gevent.Greenlet):
 
-    def __init__(self, host, port, queue, framerate, width, height, client_port=5007):
+    def __init__(self, host, port, queue, framerate, pos, width, height, client_port=5007):
         gevent.Greenlet.__init__(self)
         self.host = host
         self.port = port
@@ -81,6 +81,8 @@ class ClientTransport(gevent.Greenlet):
         self.width = width
         self.client_port = int(client_port)
         self.client_id = None
+        self.pos = pos
+        print self.port
 
     # Connect to server
     def _run(self):

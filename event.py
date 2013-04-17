@@ -27,11 +27,11 @@ def create_shakeback(resolution):
         "resolution" : resolution
     }
 
-def create_estate_event(pos):
-
+def create_estate_event(start_pos, end_pos):
     return {
         "event_type" : 5,
-        "pos" : pos
+        "start_pos" : start_pos,    #upper left corner
+        "end_pos" : end_pos         #lower right corner
     }
 
 def create_sync_event(id, recieved_at=None, sent_at=None, delta=None):

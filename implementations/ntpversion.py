@@ -52,7 +52,7 @@ class NTPServer(ServerTransport):
         elif data["event_type"] == 4:
             self.resolution = data["resolution"]
             # todo calculate new pos
-            self.send_estate((0.5, 0,5))
+            self.send_estate((0.5, 0,5)(0.5, 0.5))
         else:
             pass
 
@@ -70,6 +70,7 @@ class NTPClient(ClientTransport):
                 elif data_struct["event_type"] == 3:
                     self.handle_handshake(data_struct)
                 elif data_struct["event_type"] == 5:
+                    #todo set framesize
                     self.width = data_struct["pos"][0]
                     self.height = data_struct["pos"][1]
                 else:
