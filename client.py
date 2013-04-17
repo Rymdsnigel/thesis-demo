@@ -43,8 +43,6 @@ PORT = 5007
 tasks = Queue()
 id = ''
 
-
-
 # Render
 def render(client):
 # Setup pygame
@@ -53,7 +51,7 @@ def render(client):
     pygame.init()
     running = 1
     color = pygame.Color(100, 110, 50)
-    rect = pygame.Rect(125, 125, 50, 50)
+    rect = pygame.Rect(client.width/2, client.height/2, client.width/10, client.height/10)
     color_animation = tween.Tween()
     while running:
         event = pygame.event.poll()
@@ -64,18 +62,19 @@ def render(client):
             if data["data_id"] == 1: #do the coloranimation
                 color_animation.play(50, 250, 200.0, True, timestamp=client.get_tick())
             if data["data_id"] == 2: #change position
-                pos = (((data["data_val"][0])*300) - rect.left, 0)
+                pos = (((data["data_val"][0])*client.width) - rect.left, 0)
                 rect = rect.move(pos)
         if color_animation.running:
             color_animation.step(client.get_tick())
             if int(color_animation.value) <= 255:
                 color.b = int(color_animation.value)
-        val = ((1 + math.cos(client.get_tick()/250.0))/2)*250
+        val = ((1 + math.cos(client.get_tick()/250.0))/2)*client.height
         pos = (0, val - rect.top)
         rect = rect.move(pos)
         screen.fill((0, 0, 0))
         pygame.draw.rect(screen, color, rect)
         pygame.display.flip()
+        pygame.time.Clock().tick(client.framerate)
         gevent.sleep(0)
 
 if __name__ == '__main__':
