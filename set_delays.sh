@@ -14,3 +14,7 @@ tc qdisc add dev lo parent 1:13 handle 30: netem delay 0ms
 tc filter add dev lo protocol ip prio 1 u32 match ip dport 10001 0xffff flowid 1:11
 tc filter add dev lo protocol ip prio 1 u32 match ip dport 10002 0xffff flowid 1:12
 tc filter add dev lo protocol ip prio 1 u32 match ip dport 10003 0xffff flowid 1:13
+
+tc filter add dev lo protocol ip prio 1 u32 match ip sport 10001 0xffff flowid 1:11
+tc filter add dev lo protocol ip prio 1 u32 match ip sport 10002 0xffff flowid 1:12
+tc filter add dev lo protocol ip prio 1 u32 match ip sport 10003 0xffff flowid 1:13

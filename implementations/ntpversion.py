@@ -7,7 +7,7 @@ import logging
 import event
 from transports.sockets import ServerTransport, ClientTransport
 
-max_latency = 0         #todo: om latencyn är för stor så ska klienten hoppa ifatt i animationen ist
+max_latency = 0
 logger = logging.getLogger('test')
 
 class NTPServer(ServerTransport):
@@ -19,17 +19,10 @@ class NTPServer(ServerTransport):
 
     def send_synchronize(self):
         self.t_0 = pygame.time.get_ticks()      #todo: this is not the actual time we send this, just the time we put it on the queue
-        self.queue.put(event.create_sync_event(self.t_0, delta=self.delta))
+        self.queue.put(event.create_sync_event(self.client_id, sent_at=self.t_0, delta=self.delta))
 
     def send_latency(self, latency, max_latency):
         self.queue.put(event.create_latency_update_event(latency, max_latency))
-
-    def send_handshake(self):
-        self.queue.put(event.create_handshake(self.client_id))
-
-    def send_estate(self, pos):
-        self.queue.put(event.create_estate_event(pos))
-
 
     def handle_synchronize_response(self, data):
         global max_latency
@@ -38,23 +31,22 @@ class NTPServer(ServerTransport):
         self.t_2 = data["sent_at"]
         self.delta = ((self.t_1 - self.t_0) + (self.t_2 - self.t_3))/2
         client_delta = data["delta"]
-        if client_delta == 0:       # or client delta differs to much from self.delta
-            self.send_synchronize()
-        self.latency = (self.t_3 - self.t_0)/2
+        client_processing_time = self.t_2 - self.t_1
+        self.latency = ((self.t_3 - self.t_0)/2)
+        #logging.getLogger("fisk").info("Server: t0: %r, t1: %r, t2: %r t3: %r " % (self.t_0, self.t_1, self.t_2, self.t_3))
         if self.latency > max_latency:
             max_latency = self.latency
-        self.send_latency(self.latency,max_latency)
+        logging.getLogger('fisk').info("Server: updating client %s latency: (%r - %r)/2 =  %s and max latency: %s  t1: %r, t2: %r " %(self.client_id, self.t_3, self.t_0, self.latency, max_latency, self.t_1, self.t_2))
+        if True or (client_delta == 0) or (abs(client_delta - self.delta) > 3):
+            gevent.sleep(0)
+            self.send_synchronize()
+        self.send_latency(self.latency, max_latency)
+
 
     def handle_response(self, data):
         data = json.loads(data)
         if data["event_type"] == 1:
             self.handle_synchronize_response(data)
-        elif data["event_type"] == 4:
-            self.resolution = data["resolution"]
-            # todo calculate new pos
-            self.send_estate((0.5, 0,5)(0.5, 0.5))
-        else:
-            pass
 
 class NTPClient(ClientTransport):
 
@@ -67,34 +59,31 @@ class NTPClient(ClientTransport):
                     self.handle_synchronize(data_struct)
                 elif data_struct["event_type"] == 0:
                     self.handle_latency(data_struct)
-                elif data_struct["event_type"] == 3:
-                    self.handle_handshake(data_struct)
-                elif data_struct["event_type"] == 5:
-                    #todo set framesize
-                    self.width = data_struct["pos"][0]
-                    self.height = data_struct["pos"][1]
                 else:
                     self.handle_render_event(data_struct)
             except JSONDecodeError as e:
                 print e
 
     def handle_synchronize(self, data):
-        t_1 = pygame.time.get_ticks() # todo: edit actual message to get more exact time
-        # todo sleep here to emulate processing
+        t_1 = self.last_incoming
+        if self.client_id == None:
+            self.handle_handshake(data["client_id"])
         self.delta = data["delta"]
         t_2 = pygame.time.get_ticks()
-        evnt = event.create_sync_event(t_1, t_2, self.delta)
+        evnt = event.create_sync_event(self.client_id, t_1, t_2, self.delta)
         self.send_packet(evnt)
 
     def handle_latency(self, data):
-        self.latency = data["latency"]
-        self.max_latency = data["max_latency"]
-        self.applied_latency = self.max_latency - self.latency
+        self.latency = 0 #data["latency"]
+        self.max_latency = 0#data["max_latency"]
+        if self.latency >= self.max_latency:
+            self.applied_latency = 0
+        else:
+            self.applied_latency = abs(self.max_latency - self.latency)
 
-    def handle_handshake(self, data):
-        self.client_id = data["client_id"]
+    def handle_handshake(self, client_id):
+        self.client_id = client_id
         logger.handlers[0].setFormatter(logging.Formatter('%(asctime)s - %(levelname)s - ' + str(self.client_id) + '- %(message)s'))
-        self.send_packet(event.create_shakeback(100)) #todo should be actual resolution
 
     def handle_render_event(self, data):
         gevent.sleep(self.applied_latency/1000.0)

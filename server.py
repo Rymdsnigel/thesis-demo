@@ -1,10 +1,19 @@
 # -*- coding: utf-8 -*-
 # Server sending events to client
 import pygame
+import logging
 import gevent
 import event
 from implementations.ntpversion import NTPServer as ServerAlgo
 from transports.sockets import SocketServer
+
+logger = logging.getLogger('fisk')
+logger.setLevel(logging.DEBUG)
+ch = logging.FileHandler(filename='synclog.log')
+ch.setLevel(logging.DEBUG)
+formatter = logging.Formatter('%(asctime)s - %(levelname)s - %(message)s')
+ch.setFormatter(formatter)
+logger.addHandler(ch)
 
 
 # Handle pygame-inputs

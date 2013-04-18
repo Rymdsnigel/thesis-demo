@@ -5,41 +5,14 @@ def create_latency_update_event(latency, max_latency):
         "max_latency" : max_latency
     }
 
-def create_render_response(event_id, timestamp, client_id, state):  #todo remove? this is never used
-    return {
-        "event_type" : 1,
-        "event_id" : event_id,
-        "timestamp" : timestamp,
-        "client_id" : client_id,
-        "state" : state
-    }
-
-
-def create_handshake(client_id):
-    return {
-        "event_type" : 3,
-        "client_id" : client_id
-    }
-
-def create_shakeback(resolution):
-    return {
-        "event_type" : 4,
-        "resolution" : resolution
-    }
-
-def create_estate_event(start_pos, end_pos):
-    return {
-        "event_type" : 5,
-        "start_pos" : start_pos,    #upper left corner
-        "end_pos" : end_pos         #lower right corner
-    }
 
 def create_sync_event(id, recieved_at=None, sent_at=None, delta=None):
     return {
         "event_type" : 1,
         "recieved_at" :recieved_at,
         "sent_at" : sent_at,
-        "delta" : delta
+        "delta" : delta,
+        "client_id" : id
     }
 
 def create_render_event(id, channel, data_id, data_val, timestamp, reserved=None):

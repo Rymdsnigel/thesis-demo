@@ -62,6 +62,7 @@ def render(client):
     screen = pygame.display.set_mode((client.width,client.height))
     pygame.display.set_caption("client rendering graphics")
     pygame.init()
+    client.start()
     running = 1
     color = pygame.Color(100, 110, 50)
     pos = (0.48, 0.5)
@@ -75,13 +76,11 @@ def render(client):
         if not tasks.empty():
             data = tasks.get()
             if data["data_id"] == 1: #do the coloranimation
-                color_animation.play(50, 250, 200.0, True, timestamp=client.get_tick())
+                color_animation.play(50, 250, 200.0, True, timestamp=client.get_tick(), skip=client.skip)
             if data["data_id"] == 2: #change position
                 local_pos = to_local_pos(data["data_val"], client.pos)
                 pixel_pos = to_pixel_pos(local_pos, client)
-                #pos = (((data["data_val"][0])*client.width) - rect.left, 0)
                 rect.left  = pixel_pos[0]
-                #rect = rect.move(pos)
         if color_animation.running:
             color_animation.step(client.get_tick())
             if int(color_animation.value) <= 255:
@@ -99,7 +98,7 @@ if __name__ == '__main__':
     arguments = docopt(__doc__, version='Client 0.1')
     positions = [float(x) for x in arguments["--pos"].split(',')]
     client = Client(HOST, PORT, tasks, int(arguments["--framerate"]), positions, int(arguments["--x"]), int(arguments["--y"]), int(arguments["--port"]))
-    client.start()
+    #client.start()
     gevent.joinall([
         client,
         gevent.spawn(render, client)
