@@ -26,15 +26,15 @@ class ServerTransport(gevent.Greenlet):
                 if evnt["event_type"] == 1:
                     evnt["sent_at"] = pygame.time.get_ticks()
                     self.t_0 = evnt["sent_at"]
-                self.logger.info("Server before send")
+                #self.logger.info("Server before send")
                 gevent.sleep(0)
                 self.conn.sendall(json.dumps(evnt)+"\n")            # write event to connection
-                self.logger.info("Server after send")
+                #self.logger.info("Server after send")
                 if evnt["event_type"] == 1:
-                    self.logger.info("Server before recv")
+                    #self.logger.info("Server before recv")
                     gevent.sleep()
                     data = self.conn.recv(1024)                     # wait read
-                    self.logger.info("Server after recv, data: %s", data)
+                    #self.logger.info("Server after recv, data: %s", data)
                     self.handle_response(data)                      # handle data
             gevent.sleep(0)
         self.conn.close()
@@ -63,6 +63,10 @@ class SocketServer(object):
     def broadcast(self, event):
         for client in self.pool:
             client.add_event(event)
+
+    def synchronize_latency(self):
+        for client in self.pool:
+            client.send_synchronize()
 
     def serve_forever(self):
         self.s = gevent.socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -107,9 +111,9 @@ class ClientTransport(gevent.Greenlet):
         self.s.bind(('', self.client_port))
         self.s.connect((self.host, self.port))
         while True:
-            self.logger.info("Client before recv")
+            #self.logger.info("Client before recv")
             data = self.s.recv(1024)
-            self.logger.info("Client after recv, data: %s", data)
+            #self.logger.info("Client after recv, data: %s", data)
             self.last_incoming = pygame.time.get_ticks()
             self.handle_incoming(data)
             gevent.sleep(0)

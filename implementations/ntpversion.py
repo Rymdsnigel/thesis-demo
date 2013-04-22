@@ -34,14 +34,17 @@ class NTPServer(ServerTransport):
         client_processing_time = self.t_2 - self.t_1
         self.latency = ((self.t_3 - self.t_0)/2)
         #logging.getLogger("fisk").info("Server: t0: %r, t1: %r, t2: %r t3: %r " % (self.t_0, self.t_1, self.t_2, self.t_3))
-        if self.latency > max_latency:
-            max_latency = self.latency
-        logging.getLogger('fisk').info("Server: updating client %s latency: (%r - %r)/2 =  %s and max latency: %s  t1: %r, t2: %r " %(self.client_id, self.t_3, self.t_0, self.latency, max_latency, self.t_1, self.t_2))
-        if True or (client_delta == 0) or (abs(client_delta - self.delta) > 3):
+        self.handle_max_latency()
+        logging.getLogger('fisk').debug("Server: updating client %s latency: (%r - %r)/2 =  %s and max latency: %s  t1: %r, t2: %r " %(self.client_id, self.t_3, self.t_0, self.latency, max_latency, self.t_1, self.t_2))
+        if (client_delta == 0) or (abs(client_delta - self.delta) > 2):
             gevent.sleep(0)
             self.send_synchronize()
         self.send_latency(self.latency, max_latency)
 
+    def handle_max_latency(self):
+        global max_latency
+        if self.latency > max_latency:
+            max_latency = self.latency
 
     def handle_response(self, data):
         data = json.loads(data)
@@ -62,7 +65,8 @@ class NTPClient(ClientTransport):
                 else:
                     self.handle_render_event(data_struct)
             except JSONDecodeError as e:
-                print e
+                pass
+                #print e
 
     def handle_synchronize(self, data):
         t_1 = self.last_incoming
@@ -74,12 +78,13 @@ class NTPClient(ClientTransport):
         self.send_packet(evnt)
 
     def handle_latency(self, data):
-        self.latency = 0 #data["latency"]
-        self.max_latency = 0#data["max_latency"]
+        self.latency = data["latency"]
+        self.max_latency = data["max_latency"]
         if self.latency >= self.max_latency:
             self.applied_latency = 0
         else:
             self.applied_latency = abs(self.max_latency - self.latency)
+        self.logger.info("Client applied latency: %r" % self.applied_latency)
 
     def handle_handshake(self, client_id):
         self.client_id = client_id

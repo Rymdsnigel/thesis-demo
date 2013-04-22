@@ -37,6 +37,9 @@ def renderloop(server):
                 normalized_pos = ((xpos/300.0), (ypos/300.0))
                 EVENT = event.create_render_event(id=1, channel=1, data_id=2, data_val=normalized_pos, timestamp=pygame.time.get_ticks())
                 server.broadcast(EVENT)
+        if e.type == pygame.KEYDOWN:
+            server.synchronize_latency()
+            #print "key event"
         screen.fill((0, 0, 0))
         pygame.display.flip()
         gevent.sleep(0)
