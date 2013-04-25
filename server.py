@@ -39,7 +39,6 @@ def renderloop(server):
                 server.broadcast(EVENT)
         if e.type == pygame.KEYDOWN:
             server.synchronize_latency()
-            #print "key event"
         screen.fill((0, 0, 0))
         pygame.display.flip()
         gevent.sleep(0)

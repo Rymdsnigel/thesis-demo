@@ -15,7 +15,7 @@ Options:
   -h --help     Show this screen.
   --version     Show version.
   --port=<nr>   Port number to bind to client [default: 5007].
-  --framerate=<frame/s> Client framerate [default: 1000].
+  --framerate=<frame/s> Client framerate [default: 0].
   --x=<pixels> Width of client screen [default: 300].
   --y=<pixels> Height of client screen [default: 300].
   --pos <x1> <y1> <x2> <y2> Position of the part of the animation the client shows.
@@ -58,7 +58,7 @@ def to_pixel_pos(pos, client):
 
 # Render
 def render(client):
-# Setup pygame
+    # Setup pygame
     screen = pygame.display.set_mode((client.width,client.height))
     pygame.display.set_caption("client rendering graphics")
     pygame.init()
@@ -98,7 +98,6 @@ if __name__ == '__main__':
     arguments = docopt(__doc__, version='Client 0.1')
     positions = [float(x) for x in arguments["--pos"].split(',')]
     client = Client(HOST, PORT, tasks, int(arguments["--framerate"]), positions, int(arguments["--x"]), int(arguments["--y"]), int(arguments["--port"]))
-    #client.start()
     gevent.joinall([
         client,
         gevent.spawn(render, client)
