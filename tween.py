@@ -19,8 +19,8 @@ class Tween(object):
         self.reverse = reverse
         self.increasing = (end>start)
         self.running = True
-        self.timestamp = timestamp
         self.skip = skip
+        self.timestamp = timestamp - skip
         self.logger.info("Client animation started, time for animation: " + str(self.time))
 
     def step(self, current_time):

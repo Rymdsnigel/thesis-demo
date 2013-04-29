@@ -7,7 +7,7 @@ tc class add dev lo parent 1:1 classid 1:11 htb rate 100Mbps
 tc class add dev lo parent 1:1 classid 1:12 htb rate 100Mbps
 tc class add dev lo parent 1:1 classid 1:13 htb rate 100Mbps
 
-tc qdisc add dev lo parent 1:11 handle 10: netem delay 40ms
+tc qdisc add dev lo parent 1:11 handle 10: netem delay 50ms
 tc qdisc add dev lo parent 1:12 handle 20: netem delay 20ms
 tc qdisc add dev lo parent 1:13 handle 30: netem delay 0ms
 

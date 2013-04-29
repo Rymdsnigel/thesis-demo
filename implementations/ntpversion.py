@@ -19,7 +19,7 @@ class NTPServer(ServerTransport):
     # t_3 is the time of the response packet reception.
 
     def send_synchronize(self):
-        self.t_0 = pygame.time.get_ticks()      #todo: this is not the actual time we send this, just the time we put it on the queue
+        self.t_0 = pygame.time.get_ticks()      #this is not the actual time we send this, just the time we put it on the queue
         self.queue.put(event.create_sync_event(self.client_id, sent_at=self.t_0, delta=self.delta))
 
     def send_latency(self, latency, max_latency):
@@ -44,7 +44,10 @@ class NTPServer(ServerTransport):
 
     def handle_max_latency(self):
         global max_latency
-        latencies.insert(self.client_id - 1, self.latency)
+        if self.latency > 50:
+            latencies.insert(self.client_id - 1, 50)
+        else:
+            latencies.insert(self.client_id - 1, self.latency)
         max_latency = max(latencies)
 
     def handle_response(self, data):
@@ -81,10 +84,16 @@ class NTPClient(ClientTransport):
     def handle_latency(self, data):
         self.latency = data["latency"]
         self.max_latency = data["max_latency"]
-        if self.latency >= self.max_latency:
-            self.applied_latency = 0
-        else:
-            self.applied_latency = abs(self.max_latency - self.latency)
+        if self.latency <= 50:
+            if self.latency >= self.max_latency:
+                self.applied_latency = 0
+            else:
+                self.applied_latency = abs(self.max_latency - self.latency)
+        if self.latency > 50:
+            print "latency bigger than 50"
+            self.skip = self.latency - 50
+            self.applied_latency  = 0
+
         self.logger.info("Client applied latency: %r" % self.applied_latency)
 
     def handle_handshake(self, client_id):
