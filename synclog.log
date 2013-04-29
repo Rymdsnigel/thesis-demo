@@ -144,3 +144,287 @@
 2013-04-24 00:13:42,522 - DEBUG - Server: updating client 2 latency: (53876 - 53875)/2 =  0 and max latency: 1  t1: 177, t2: 178 
 2013-04-24 00:13:42,536 - INFO - 2- Client applied latency: 0
 2013-04-24 00:13:42,538 - INFO - 2- Client applied latency: 1
+2013-04-29 15:40:27,271 - DEBUG - Server: updating client 1 latency: (1871 - 1871)/2 =  0 and max latency: 0  t1: 258, t2: 258 
+2013-04-29 15:40:27,287 - DEBUG - Server: updating client 2 latency: (1888 - 1887)/2 =  0 and max latency: 0  t1: 278, t2: 278 
+2013-04-29 15:40:27,291 - DEBUG - Server: updating client 1 latency: (1892 - 1888)/2 =  2 and max latency: 2  t1: 277, t2: 277 
+2013-04-29 15:40:27,294 - DEBUG - Server: updating client 2 latency: (1895 - 1893)/2 =  1 and max latency: 2  t1: 284, t2: 284 
+2013-04-29 15:40:27,294 - INFO - 1- Client applied latency: 0
+2013-04-29 15:40:27,296 - INFO - 1- Client applied latency: 0
+2013-04-29 15:40:27,296 - INFO - 2- Client applied latency: 0
+2013-04-29 15:40:27,298 - INFO - 2- Client applied latency: 1
+2013-04-29 15:40:32,444 - INFO - 1- Client animation started, time for animation: 200.0
+2013-04-29 15:40:32,445 - INFO - 2- Client animation started, time for animation: 200.0
+2013-04-29 15:40:32,645 - INFO - 2- Client animation started, time for animation: 200.0
+2013-04-29 15:40:32,645 - INFO - 1- Client animation started, time for animation: 200.0
+2013-04-29 15:40:33,088 - INFO - 1- Client animation started, time for animation: 200.0
+2013-04-29 15:40:33,090 - INFO - 2- Client animation started, time for animation: 200.0
+2013-04-29 15:40:33,289 - INFO - 1- Client animation started, time for animation: 200.0
+2013-04-29 15:40:33,289 - INFO - 2- Client animation started, time for animation: 200.0
+2013-04-29 15:40:33,729 - INFO - 1- Client animation started, time for animation: 200.0
+2013-04-29 15:40:33,730 - INFO - 2- Client animation started, time for animation: 200.0
+2013-04-29 15:40:33,930 - INFO - 1- Client animation started, time for animation: 200.0
+2013-04-29 15:40:33,931 - INFO - 2- Client animation started, time for animation: 200.0
+2013-04-29 15:40:34,295 - INFO - 1- Client animation started, time for animation: 200.0
+2013-04-29 15:40:34,298 - INFO - 2- Client animation started, time for animation: 200.0
+2013-04-29 15:40:34,495 - INFO - 1- Client animation started, time for animation: 200.0
+2013-04-29 15:40:34,499 - INFO - 2- Client animation started, time for animation: 200.0
+2013-04-29 15:40:34,946 - INFO - 1- Client animation started, time for animation: 200.0
+2013-04-29 15:40:34,947 - INFO - 2- Client animation started, time for animation: 200.0
+2013-04-29 15:40:35,145 - INFO - 1- Client animation started, time for animation: 200.0
+2013-04-29 15:40:35,146 - INFO - 2- Client animation started, time for animation: 200.0
+2013-04-29 15:40:35,568 - INFO - 1- Client animation started, time for animation: 200.0
+2013-04-29 15:40:35,574 - INFO - 2- Client animation started, time for animation: 200.0
+2013-04-29 15:40:35,770 - INFO - 1- Client animation started, time for animation: 200.0
+2013-04-29 15:40:35,773 - INFO - 2- Client animation started, time for animation: 200.0
+2013-04-29 15:40:36,177 - INFO - 1- Client animation started, time for animation: 200.0
+2013-04-29 15:40:36,179 - INFO - 2- Client animation started, time for animation: 200.0
+2013-04-29 15:40:36,377 - INFO - 1- Client animation started, time for animation: 200.0
+2013-04-29 15:40:36,379 - INFO - 2- Client animation started, time for animation: 200.0
+2013-04-29 15:44:54,359 - DEBUG - Server: updating client 1 latency: (3243 - 3200)/2 =  21 and max latency: 21  t1: 282, t2: 282 
+2013-04-29 15:44:54,410 - DEBUG - Server: updating client 1 latency: (3294 - 3245)/2 =  24 and max latency: 24  t1: 333, t2: 333 
+2013-04-29 15:44:54,440 - INFO - 1- Client applied latency: 0
+2013-04-29 15:44:54,472 - DEBUG - Server: updating client 1 latency: (3356 - 3307)/2 =  24 and max latency: 24  t1: 389, t2: 389 
+2013-04-29 15:44:54,501 - INFO - 1- Client applied latency: 0
+2013-04-29 15:44:54,524 - DEBUG - Server: updating client 1 latency: (3409 - 3365)/2 =  22 and max latency: 24  t1: 447, t2: 447 
+2013-04-29 15:44:54,541 - DEBUG - Server: updating client 2 latency: (3425 - 3342)/2 =  41 and max latency: 41  t1: 438, t2: 438 
+2013-04-29 15:44:54,548 - INFO - 1- Client applied latency: 0
+2013-04-29 15:44:54,573 - DEBUG - Server: updating client 1 latency: (3457 - 3412)/2 =  22 and max latency: 41  t1: 494, t2: 494 
+2013-04-29 15:44:54,598 - INFO - 1- Client applied latency: 2
+2013-04-29 15:44:54,601 - INFO - 1- Client applied latency: 19
+2013-04-29 15:44:54,624 - DEBUG - Server: updating client 2 latency: (3508 - 3427)/2 =  40 and max latency: 41  t1: 521, t2: 521 
+2013-04-29 15:44:54,675 - INFO - 2- Client applied latency: 0
+2013-04-29 15:44:54,675 - INFO - 2- Client applied latency: 1
+2013-04-29 15:45:29,991 - INFO - 2- Client animation started, time for animation: 200.0
+2013-04-29 15:45:29,992 - INFO - 1- Client animation started, time for animation: 200.0
+2013-04-29 15:45:30,197 - INFO - 2- Client animation started, time for animation: 200.0
+2013-04-29 15:45:30,199 - INFO - 1- Client animation started, time for animation: 200.0
+2013-04-29 15:45:30,834 - INFO - 1- Client animation started, time for animation: 200.0
+2013-04-29 15:45:30,834 - INFO - 2- Client animation started, time for animation: 200.0
+2013-04-29 15:45:31,033 - INFO - 1- Client animation started, time for animation: 200.0
+2013-04-29 15:45:31,034 - INFO - 2- Client animation started, time for animation: 200.0
+2013-04-29 15:45:31,451 - INFO - 1- Client animation started, time for animation: 200.0
+2013-04-29 15:45:31,455 - INFO - 2- Client animation started, time for animation: 200.0
+2013-04-29 15:45:31,653 - INFO - 1- Client animation started, time for animation: 200.0
+2013-04-29 15:45:31,655 - INFO - 2- Client animation started, time for animation: 200.0
+2013-04-29 15:45:32,188 - INFO - 1- Client animation started, time for animation: 200.0
+2013-04-29 15:45:32,190 - INFO - 2- Client animation started, time for animation: 200.0
+2013-04-29 15:45:32,389 - INFO - 1- Client animation started, time for animation: 200.0
+2013-04-29 15:45:32,391 - INFO - 2- Client animation started, time for animation: 200.0
+2013-04-29 15:45:32,871 - INFO - 1- Client animation started, time for animation: 200.0
+2013-04-29 15:45:32,873 - INFO - 2- Client animation started, time for animation: 200.0
+2013-04-29 15:45:33,071 - INFO - 1- Client animation started, time for animation: 200.0
+2013-04-29 15:45:33,073 - INFO - 2- Client animation started, time for animation: 200.0
+2013-04-29 15:45:33,682 - INFO - 1- Client animation started, time for animation: 200.0
+2013-04-29 15:45:33,686 - INFO - 2- Client animation started, time for animation: 200.0
+2013-04-29 15:45:33,882 - INFO - 1- Client animation started, time for animation: 200.0
+2013-04-29 15:45:33,887 - INFO - 2- Client animation started, time for animation: 200.0
+2013-04-29 15:45:34,389 - INFO - 1- Client animation started, time for animation: 200.0
+2013-04-29 15:45:34,397 - INFO - 2- Client animation started, time for animation: 200.0
+2013-04-29 15:45:34,590 - INFO - 1- Client animation started, time for animation: 200.0
+2013-04-29 15:45:34,596 - INFO - 2- Client animation started, time for animation: 200.0
+2013-04-29 15:45:35,061 - INFO - 1- Client animation started, time for animation: 200.0
+2013-04-29 15:45:35,065 - INFO - 2- Client animation started, time for animation: 200.0
+2013-04-29 15:45:35,262 - INFO - 1- Client animation started, time for animation: 200.0
+2013-04-29 15:45:35,265 - INFO - 2- Client animation started, time for animation: 200.0
+2013-04-29 15:45:37,692 - INFO - 1- Client animation started, time for animation: 200.0
+2013-04-29 15:45:37,695 - INFO - 2- Client animation started, time for animation: 200.0
+2013-04-29 15:45:37,892 - INFO - 1- Client animation started, time for animation: 200.0
+2013-04-29 15:45:37,896 - INFO - 2- Client animation started, time for animation: 200.0
+2013-04-29 15:45:41,714 - INFO - 2- Client animation started, time for animation: 200.0
+2013-04-29 15:45:41,917 - INFO - 2- Client animation started, time for animation: 200.0
+2013-04-29 15:47:58,899 - DEBUG - Server: updating client 1 latency: (3444 - 3401)/2 =  21 and max latency: 21  t1: 343, t2: 343 
+2013-04-29 15:47:58,949 - DEBUG - Server: updating client 1 latency: (3494 - 3451)/2 =  21 and max latency: 21  t1: 393, t2: 393 
+2013-04-29 15:47:58,972 - INFO - 1- Client applied latency: 0
+2013-04-29 15:47:58,974 - INFO - 1- Client applied latency: 0
+2013-04-29 15:47:58,975 - DEBUG - Server: updating client 2 latency: (3520 - 3437)/2 =  41 and max latency: 41  t1: 380, t2: 380 
+2013-04-29 15:47:59,059 - DEBUG - Server: updating client 2 latency: (3605 - 3522)/2 =  41 and max latency: 41  t1: 466, t2: 466 
+2013-04-29 15:47:59,101 - INFO - 2- Client applied latency: 0
+2013-04-29 15:47:59,104 - INFO - 2- Client applied latency: 0
+2013-04-29 15:48:06,226 - INFO - 1- Client animation started, time for animation: 200.0
+2013-04-29 15:48:06,246 - INFO - 2- Client animation started, time for animation: 200.0
+2013-04-29 15:48:06,426 - INFO - 1- Client animation started, time for animation: 200.0
+2013-04-29 15:48:06,446 - INFO - 2- Client animation started, time for animation: 200.0
+2013-04-29 15:48:07,053 - INFO - 1- Client animation started, time for animation: 200.0
+2013-04-29 15:48:07,073 - INFO - 2- Client animation started, time for animation: 200.0
+2013-04-29 15:48:07,254 - INFO - 1- Client animation started, time for animation: 200.0
+2013-04-29 15:48:07,272 - INFO - 2- Client animation started, time for animation: 200.0
+2013-04-29 15:48:07,817 - INFO - 1- Client animation started, time for animation: 200.0
+2013-04-29 15:48:07,839 - INFO - 2- Client animation started, time for animation: 200.0
+2013-04-29 15:48:08,016 - INFO - 1- Client animation started, time for animation: 200.0
+2013-04-29 15:48:08,039 - INFO - 2- Client animation started, time for animation: 200.0
+2013-04-29 15:48:08,577 - INFO - 1- Client animation started, time for animation: 200.0
+2013-04-29 15:48:08,598 - INFO - 2- Client animation started, time for animation: 200.0
+2013-04-29 15:48:08,778 - INFO - 1- Client animation started, time for animation: 200.0
+2013-04-29 15:48:08,797 - INFO - 2- Client animation started, time for animation: 200.0
+2013-04-29 15:48:09,251 - INFO - 1- Client animation started, time for animation: 200.0
+2013-04-29 15:48:09,270 - INFO - 2- Client animation started, time for animation: 200.0
+2013-04-29 15:48:09,451 - INFO - 1- Client animation started, time for animation: 200.0
+2013-04-29 15:48:09,469 - INFO - 2- Client animation started, time for animation: 200.0
+2013-04-29 15:48:09,869 - INFO - 1- Client animation started, time for animation: 200.0
+2013-04-29 15:48:09,885 - INFO - 2- Client animation started, time for animation: 200.0
+2013-04-29 15:48:10,068 - INFO - 1- Client animation started, time for animation: 200.0
+2013-04-29 15:48:10,085 - INFO - 2- Client animation started, time for animation: 200.0
+2013-04-29 15:48:10,539 - INFO - 1- Client animation started, time for animation: 200.0
+2013-04-29 15:48:10,560 - INFO - 2- Client animation started, time for animation: 200.0
+2013-04-29 15:48:10,744 - INFO - 1- Client animation started, time for animation: 200.0
+2013-04-29 15:48:10,760 - INFO - 2- Client animation started, time for animation: 200.0
+2013-04-29 15:48:11,285 - INFO - 1- Client animation started, time for animation: 200.0
+2013-04-29 15:48:11,306 - INFO - 2- Client animation started, time for animation: 200.0
+2013-04-29 15:48:11,486 - INFO - 1- Client animation started, time for animation: 200.0
+2013-04-29 15:48:11,507 - INFO - 2- Client animation started, time for animation: 200.0
+2013-04-29 15:48:11,997 - INFO - 1- Client animation started, time for animation: 200.0
+2013-04-29 15:48:12,020 - INFO - 2- Client animation started, time for animation: 200.0
+2013-04-29 15:48:12,197 - INFO - 1- Client animation started, time for animation: 200.0
+2013-04-29 15:48:12,219 - INFO - 2- Client animation started, time for animation: 200.0
+2013-04-29 15:48:12,826 - INFO - 1- Client animation started, time for animation: 200.0
+2013-04-29 15:48:12,854 - INFO - 2- Client animation started, time for animation: 200.0
+2013-04-29 15:48:13,026 - INFO - 1- Client animation started, time for animation: 200.0
+2013-04-29 15:48:13,053 - INFO - 2- Client animation started, time for animation: 200.0
+2013-04-29 15:48:14,706 - DEBUG - Server: updating client 1 latency: (19250 - 19208)/2 =  21 and max latency: 41  t1: 16150, t2: 16150 
+2013-04-29 15:48:14,731 - INFO - 1- Client applied latency: 20
+2013-04-29 15:48:14,747 - DEBUG - Server: updating client 2 latency: (19292 - 19207)/2 =  42 and max latency: 42  t1: 16153, t2: 16153 
+2013-04-29 15:48:14,792 - INFO - 2- Client applied latency: 0
+2013-04-29 15:48:14,971 - DEBUG - Server: updating client 1 latency: (19516 - 19474)/2 =  21 and max latency: 42  t1: 16416, t2: 16416 
+2013-04-29 15:48:14,997 - INFO - 1- Client applied latency: 21
+2013-04-29 15:48:15,011 - DEBUG - Server: updating client 2 latency: (19556 - 19472)/2 =  42 and max latency: 42  t1: 16416, t2: 16417 
+2013-04-29 15:48:15,057 - INFO - 2- Client applied latency: 0
+2013-04-29 15:48:15,212 - DEBUG - Server: updating client 1 latency: (19758 - 19716)/2 =  21 and max latency: 42  t1: 16657, t2: 16657 
+2013-04-29 15:48:15,238 - INFO - 1- Client applied latency: 21
+2013-04-29 15:48:15,252 - DEBUG - Server: updating client 2 latency: (19798 - 19713)/2 =  42 and max latency: 42  t1: 16659, t2: 16659 
+2013-04-29 15:48:15,296 - INFO - 2- Client applied latency: 0
+2013-04-29 15:48:15,532 - DEBUG - Server: updating client 1 latency: (20077 - 20033)/2 =  22 and max latency: 42  t1: 16976, t2: 16976 
+2013-04-29 15:48:15,556 - INFO - 1- Client applied latency: 20
+2013-04-29 15:48:15,569 - DEBUG - Server: updating client 2 latency: (20114 - 20032)/2 =  41 and max latency: 42  t1: 16976, t2: 16976 
+2013-04-29 15:48:15,613 - INFO - 2- Client applied latency: 1
+2013-04-29 15:48:15,810 - DEBUG - Server: updating client 1 latency: (20355 - 20312)/2 =  21 and max latency: 42  t1: 17254, t2: 17254 
+2013-04-29 15:48:15,838 - INFO - 1- Client applied latency: 21
+2013-04-29 15:48:15,852 - DEBUG - Server: updating client 2 latency: (20397 - 20311)/2 =  43 and max latency: 43  t1: 17255, t2: 17255 
+2013-04-29 15:48:15,909 - INFO - 2- Client applied latency: 0
+2013-04-29 15:48:16,098 - DEBUG - Server: updating client 1 latency: (20644 - 20602)/2 =  21 and max latency: 43  t1: 17543, t2: 17544 
+2013-04-29 15:48:16,124 - INFO - 1- Client applied latency: 22
+2013-04-29 15:48:16,140 - DEBUG - Server: updating client 2 latency: (20686 - 20601)/2 =  42 and max latency: 43  t1: 17544, t2: 17544 
+2013-04-29 15:48:16,185 - INFO - 2- Client applied latency: 1
+2013-04-29 15:48:16,379 - DEBUG - Server: updating client 1 latency: (20924 - 20881)/2 =  21 and max latency: 43  t1: 17822, t2: 17822 
+2013-04-29 15:48:16,408 - INFO - 1- Client applied latency: 22
+2013-04-29 15:48:16,419 - DEBUG - Server: updating client 2 latency: (20964 - 20880)/2 =  42 and max latency: 43  t1: 17823, t2: 17823 
+2013-04-29 15:48:16,467 - INFO - 2- Client applied latency: 1
+2013-04-29 15:48:17,347 - DEBUG - Server: updating client 1 latency: (21893 - 21849)/2 =  22 and max latency: 43  t1: 18791, t2: 18792 
+2013-04-29 15:48:17,374 - INFO - 1- Client applied latency: 21
+2013-04-29 15:48:17,388 - DEBUG - Server: updating client 2 latency: (21934 - 21849)/2 =  42 and max latency: 43  t1: 18795, t2: 18795 
+2013-04-29 15:48:17,434 - INFO - 2- Client applied latency: 1
+2013-04-29 15:48:18,074 - INFO - 1- Client animation started, time for animation: 200.0
+2013-04-29 15:48:18,076 - INFO - 2- Client animation started, time for animation: 200.0
+2013-04-29 15:48:18,275 - INFO - 1- Client animation started, time for animation: 200.0
+2013-04-29 15:48:18,277 - INFO - 2- Client animation started, time for animation: 200.0
+2013-04-29 15:48:18,423 - INFO - 1- Client animation started, time for animation: 200.0
+2013-04-29 15:48:18,426 - INFO - 2- Client animation started, time for animation: 200.0
+2013-04-29 15:48:18,624 - INFO - 1- Client animation started, time for animation: 200.0
+2013-04-29 15:48:18,626 - INFO - 2- Client animation started, time for animation: 200.0
+2013-04-29 15:48:19,088 - INFO - 2- Client animation started, time for animation: 200.0
+2013-04-29 15:48:19,089 - INFO - 1- Client animation started, time for animation: 200.0
+2013-04-29 15:48:19,289 - INFO - 2- Client animation started, time for animation: 200.0
+2013-04-29 15:48:19,289 - INFO - 1- Client animation started, time for animation: 200.0
+2013-04-29 15:48:19,706 - INFO - 1- Client animation started, time for animation: 200.0
+2013-04-29 15:48:19,707 - INFO - 2- Client animation started, time for animation: 200.0
+2013-04-29 15:48:19,906 - INFO - 2- Client animation started, time for animation: 200.0
+2013-04-29 15:48:19,909 - INFO - 1- Client animation started, time for animation: 200.0
+2013-04-29 15:48:20,336 - INFO - 1- Client animation started, time for animation: 200.0
+2013-04-29 15:48:20,339 - INFO - 2- Client animation started, time for animation: 200.0
+2013-04-29 15:48:20,538 - INFO - 2- Client animation started, time for animation: 200.0
+2013-04-29 15:48:20,538 - INFO - 1- Client animation started, time for animation: 200.0
+2013-04-29 15:48:21,128 - INFO - 2- Client animation started, time for animation: 200.0
+2013-04-29 15:48:21,129 - INFO - 1- Client animation started, time for animation: 200.0
+2013-04-29 15:48:21,330 - INFO - 2- Client animation started, time for animation: 200.0
+2013-04-29 15:48:21,331 - INFO - 1- Client animation started, time for animation: 200.0
+2013-04-29 15:48:22,056 - INFO - 1- Client animation started, time for animation: 200.0
+2013-04-29 15:48:22,058 - INFO - 2- Client animation started, time for animation: 200.0
+2013-04-29 15:48:22,257 - INFO - 1- Client animation started, time for animation: 200.0
+2013-04-29 15:48:22,259 - INFO - 2- Client animation started, time for animation: 200.0
+2013-04-29 15:48:24,481 - INFO - 2- Client animation started, time for animation: 200.0
+2013-04-29 15:48:24,484 - INFO - 1- Client animation started, time for animation: 200.0
+2013-04-29 15:48:24,682 - INFO - 2- Client animation started, time for animation: 200.0
+2013-04-29 15:48:24,686 - INFO - 1- Client animation started, time for animation: 200.0
+2013-04-29 15:48:25,068 - INFO - 1- Client animation started, time for animation: 200.0
+2013-04-29 15:48:25,072 - INFO - 2- Client animation started, time for animation: 200.0
+2013-04-29 15:48:25,268 - INFO - 1- Client animation started, time for animation: 200.0
+2013-04-29 15:48:25,271 - INFO - 2- Client animation started, time for animation: 200.0
+2013-04-29 15:48:25,703 - INFO - 1- Client animation started, time for animation: 200.0
+2013-04-29 15:48:25,705 - INFO - 2- Client animation started, time for animation: 200.0
+2013-04-29 15:48:25,905 - INFO - 1- Client animation started, time for animation: 200.0
+2013-04-29 15:48:25,906 - INFO - 2- Client animation started, time for animation: 200.0
+2013-04-29 15:48:26,312 - INFO - 2- Client animation started, time for animation: 200.0
+2013-04-29 15:48:26,312 - INFO - 1- Client animation started, time for animation: 200.0
+2013-04-29 15:48:26,511 - INFO - 2- Client animation started, time for animation: 200.0
+2013-04-29 15:48:26,512 - INFO - 1- Client animation started, time for animation: 200.0
+2013-04-29 15:48:28,314 - DEBUG - Server: updating client 1 latency: (32859 - 32817)/2 =  21 and max latency: 43  t1: 29758, t2: 29758 
+2013-04-29 15:48:28,341 - INFO - 1- Client applied latency: 22
+2013-04-29 15:48:28,355 - DEBUG - Server: updating client 2 latency: (32900 - 32817)/2 =  41 and max latency: 43  t1: 29760, t2: 29760 
+2013-04-29 15:48:28,403 - INFO - 2- Client applied latency: 2
+2013-04-29 15:48:28,537 - DEBUG - Server: updating client 1 latency: (33082 - 33039)/2 =  21 and max latency: 43  t1: 29982, t2: 29982 
+2013-04-29 15:48:28,560 - INFO - 1- Client applied latency: 22
+2013-04-29 15:48:28,580 - DEBUG - Server: updating client 2 latency: (33124 - 33039)/2 =  42 and max latency: 43  t1: 29985, t2: 29985 
+2013-04-29 15:48:28,626 - INFO - 2- Client applied latency: 1
+2013-04-29 15:48:28,721 - DEBUG - Server: updating client 1 latency: (33266 - 33223)/2 =  21 and max latency: 43  t1: 30166, t2: 30166 
+2013-04-29 15:48:28,747 - INFO - 1- Client applied latency: 22
+2013-04-29 15:48:28,764 - DEBUG - Server: updating client 2 latency: (33309 - 33223)/2 =  43 and max latency: 43  t1: 30169, t2: 30169 
+2013-04-29 15:48:28,808 - INFO - 2- Client applied latency: 0
+2013-04-29 15:48:28,888 - DEBUG - Server: updating client 1 latency: (33433 - 33391)/2 =  21 and max latency: 43  t1: 30333, t2: 30333 
+2013-04-29 15:48:28,912 - INFO - 1- Client applied latency: 22
+2013-04-29 15:48:28,931 - DEBUG - Server: updating client 2 latency: (33476 - 33391)/2 =  42 and max latency: 43  t1: 30336, t2: 30337 
+2013-04-29 15:48:28,975 - INFO - 2- Client applied latency: 1
+2013-04-29 15:48:29,054 - DEBUG - Server: updating client 1 latency: (33600 - 33555)/2 =  22 and max latency: 43  t1: 30499, t2: 30499 
+2013-04-29 15:48:29,079 - INFO - 1- Client applied latency: 21
+2013-04-29 15:48:29,092 - DEBUG - Server: updating client 2 latency: (33638 - 33554)/2 =  42 and max latency: 43  t1: 30499, t2: 30499 
+2013-04-29 15:48:29,137 - INFO - 2- Client applied latency: 1
+2013-04-29 15:48:29,215 - DEBUG - Server: updating client 1 latency: (33761 - 33719)/2 =  21 and max latency: 43  t1: 30661, t2: 30661 
+2013-04-29 15:48:29,246 - INFO - 1- Client applied latency: 22
+2013-04-29 15:48:29,264 - DEBUG - Server: updating client 2 latency: (33810 - 33719)/2 =  45 and max latency: 45  t1: 30670, t2: 30670 
+2013-04-29 15:48:29,311 - INFO - 2- Client applied latency: 0
+2013-04-29 15:48:29,385 - DEBUG - Server: updating client 1 latency: (33931 - 33889)/2 =  21 and max latency: 45  t1: 30830, t2: 30831 
+2013-04-29 15:48:29,413 - INFO - 1- Client applied latency: 24
+2013-04-29 15:48:29,431 - DEBUG - Server: updating client 2 latency: (33977 - 33888)/2 =  44 and max latency: 45  t1: 30837, t2: 30837 
+2013-04-29 15:48:29,480 - INFO - 2- Client applied latency: 1
+2013-04-29 15:48:29,569 - DEBUG - Server: updating client 1 latency: (34113 - 34072)/2 =  20 and max latency: 45  t1: 31013, t2: 31013 
+2013-04-29 15:48:29,594 - INFO - 1- Client applied latency: 25
+2013-04-29 15:48:29,608 - DEBUG - Server: updating client 2 latency: (34153 - 34071)/2 =  41 and max latency: 45  t1: 31014, t2: 31014 
+2013-04-29 15:48:29,653 - INFO - 2- Client applied latency: 4
+2013-04-29 15:48:29,825 - INFO - 2- Client animation started, time for animation: 200.0
+2013-04-29 15:48:29,826 - INFO - 1- Client animation started, time for animation: 200.0
+2013-04-29 15:48:30,024 - INFO - 1- Client animation started, time for animation: 200.0
+2013-04-29 15:48:30,028 - INFO - 2- Client animation started, time for animation: 200.0
+2013-04-29 15:48:30,154 - INFO - 1- Client animation started, time for animation: 200.0
+2013-04-29 15:48:30,157 - INFO - 2- Client animation started, time for animation: 200.0
+2013-04-29 15:48:30,355 - INFO - 1- Client animation started, time for animation: 200.0
+2013-04-29 15:48:30,358 - INFO - 2- Client animation started, time for animation: 200.0
+2013-04-29 15:48:30,620 - INFO - 1- Client animation started, time for animation: 200.0
+2013-04-29 15:48:30,622 - INFO - 2- Client animation started, time for animation: 200.0
+2013-04-29 15:48:30,828 - INFO - 2- Client animation started, time for animation: 200.0
+2013-04-29 15:48:30,828 - INFO - 1- Client animation started, time for animation: 200.0
+2013-04-29 15:48:31,338 - INFO - 2- Client animation started, time for animation: 200.0
+2013-04-29 15:48:31,338 - INFO - 1- Client animation started, time for animation: 200.0
+2013-04-29 15:48:31,538 - INFO - 2- Client animation started, time for animation: 200.0
+2013-04-29 15:48:31,540 - INFO - 1- Client animation started, time for animation: 200.0
+2013-04-29 15:48:31,881 - INFO - 2- Client animation started, time for animation: 200.0
+2013-04-29 15:48:31,882 - INFO - 1- Client animation started, time for animation: 200.0
+2013-04-29 15:48:32,081 - INFO - 2- Client animation started, time for animation: 200.0
+2013-04-29 15:48:32,083 - INFO - 1- Client animation started, time for animation: 200.0
+2013-04-29 15:48:32,451 - INFO - 2- Client animation started, time for animation: 200.0
+2013-04-29 15:48:32,454 - INFO - 1- Client animation started, time for animation: 200.0
+2013-04-29 15:48:32,653 - INFO - 2- Client animation started, time for animation: 200.0
+2013-04-29 15:48:32,654 - INFO - 1- Client animation started, time for animation: 200.0
+2013-04-29 15:48:33,076 - INFO - 2- Client animation started, time for animation: 200.0
+2013-04-29 15:48:33,077 - INFO - 1- Client animation started, time for animation: 200.0
+2013-04-29 15:48:33,277 - INFO - 2- Client animation started, time for animation: 200.0
+2013-04-29 15:48:33,277 - INFO - 1- Client animation started, time for animation: 200.0
+2013-04-29 15:48:33,698 - INFO - 2- Client animation started, time for animation: 200.0
+2013-04-29 15:48:33,699 - INFO - 1- Client animation started, time for animation: 200.0
+2013-04-29 15:48:33,897 - INFO - 2- Client animation started, time for animation: 200.0
+2013-04-29 15:48:33,899 - INFO - 1- Client animation started, time for animation: 200.0
+2013-04-29 15:48:34,212 - INFO - 2- Client animation started, time for animation: 200.0
+2013-04-29 15:48:34,214 - INFO - 1- Client animation started, time for animation: 200.0
+2013-04-29 15:48:34,412 - INFO - 2- Client animation started, time for animation: 200.0
+2013-04-29 15:48:34,414 - INFO - 1- Client animation started, time for animation: 200.0
+2013-04-29 15:48:34,798 - INFO - 2- Client animation started, time for animation: 200.0
+2013-04-29 15:48:34,799 - INFO - 1- Client animation started, time for animation: 200.0
+2013-04-29 15:48:34,998 - INFO - 2- Client animation started, time for animation: 200.0
+2013-04-29 15:48:34,999 - INFO - 1- Client animation started, time for animation: 200.0

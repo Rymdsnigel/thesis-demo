@@ -7,6 +7,7 @@ import logging
 import event
 from transports.sockets import ServerTransport, ClientTransport
 
+latencies = []
 max_latency = 0
 logger = logging.getLogger('test')
 
@@ -43,8 +44,8 @@ class NTPServer(ServerTransport):
 
     def handle_max_latency(self):
         global max_latency
-        if self.latency > max_latency:
-            max_latency = self.latency
+        latencies.insert(self.client_id - 1, self.latency)
+        max_latency = max(latencies)
 
     def handle_response(self, data):
         data = json.loads(data)
