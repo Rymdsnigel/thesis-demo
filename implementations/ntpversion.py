@@ -15,7 +15,7 @@ logger = logging.getLogger('client')
 class NTPServer(ServerTransport):
 
     def send_synchronize(self):
-        self.t_0 = pygame.time.get_ticks()      #this is not the actual time we send this, just the time we put it on the queue
+        self.t_0 = pygame.time.get_ticks()      #t_0 will not be the time we send msg, just the time we put it on the queue
         self.queue.put(event.create_sync_event(self.client_id, sent_at=self.t_0, delta=self.delta))
 
     def send_latency(self, latency, max_latency):

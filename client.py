@@ -56,42 +56,75 @@ def to_local_pos(pos, client_pos):
 def to_pixel_pos(pos, client):
     return (pos[0]*client.width, pos[1]*client.height)
 
-# Render
+#Check if client has closed pygame window
+def pygame_running():
+    event = pygame.event.poll()
+    if event.type == pygame.QUIT:
+        return False
+    else:
+        return True
+
+class Animation(object):
+    def __init__(self, obj, prop):
+        self.obj = obj
+        self.prop = prop
+        self.tween = tween.Tween()
+
+    def play(self, start, stop, length, reverse, timestamp, skip):
+        self.tween.play(start, stop, length, reverse=reverse, timestamp=timestamp, skip=skip)
+
+    def update(self, tick):
+        if self.tween.running:
+            self.tween.step(tick)
+            self.obj[self.prop] = int(tween.value)
+
+class Rectangle(object):
+    def __init__(self, client):
+        self.color = pygame.Color(100, 110, 50)
+        self.color_animation = Animation(obj=self.color, prop='b')
+        self.pos = to_local_pos((0.48, 0.5), client.pos)
+        self.size = (client.width/10, client.height/10)
+        self.client = client
+        self.rect = pygame.Rect(to_pixel_pos(self.pos, self.client), self.size)
+
+    def move(self, pos):
+        local_pos = to_local_pos(pos, self.client.pos)
+        pixel_pos = to_pixel_pos(local_pos, self.lient)
+        self.rect.left  = pixel_pos[0]
+
+    def animate(self):
+        val = ((1 + math.cos(self.client.get_tick()/250.0))/2)*self.client.height
+        self.pos = (0, val - self.rect.top)
+        self.rect = self.rect.move(self.pos)
+        self.color_animation.update(client.get_tick())
+
+# Render client animation
 def render(client):
-    # Setup pygame
     screen = pygame.display.set_mode((client.width,client.height))
     pygame.display.set_caption("client rendering graphics")
     pygame.init()
     client.start()
-    running = 1
-    color = pygame.Color(100, 110, 50)
-    pos = (0.48, 0.5)
-    local_pos = to_local_pos(pos, client.pos)
-    rect = pygame.Rect(to_pixel_pos(local_pos, client), (client.width/10, client.height/10))
-    color_animation = tween.Tween()
-    while running:
-        event = pygame.event.poll()
-        if event.type == pygame.QUIT:
-            running = 0
+    rect = Rectangle(client)
+
+    while pygame_running():
         if not tasks.empty():
             data = tasks.get()
-            if data["data_id"] == 1: #do the coloranimation
-                color_animation.play(50, 250, 200.0, True, timestamp=client.get_tick(), skip=client.skip)
-            if data["data_id"] == 2: #change position
-                local_pos = to_local_pos(data["data_val"], client.pos)
-                pixel_pos = to_pixel_pos(local_pos, client)
-                rect.left  = pixel_pos[0]
-        if color_animation.running:
-            color_animation.step(client.get_tick())
-            if int(color_animation.value) <= 255:
-                color.b = int(color_animation.value)
-        val = ((1 + math.cos(client.get_tick()/250.0))/2)*client.height
-        pos = (0, val - rect.top)
-        rect = rect.move(pos)
-        if (client.get_tick() % 1000) == 0:             #what im trying to see is how the main animation syncs
-            color_animation.logger.info("Main animation event")
+        else:
+            data = {}
+        data_id = data.get("data_id", False)
+
+        if data_id == 2: #change position of rect
+            rect.move(data[data_val])
+        if data_id == 1: #do the coloranimation
+            rect.color_animation.play(50, 250, 200.0, True, timestamp=client.get_tick(), skip=client.skip)
+
+        if (client.get_tick() % 1000) == 0:             #This is used to compare how the animations sync between clients when the clients are both running on the same computer
+            rect.color_animation.tween.logger.info("Main animation event")
+
+        rect.animate()
         screen.fill((0, 0, 0))
-        pygame.draw.rect(screen, color, rect)
+        pygame.draw.rect(screen, rect.color, rect.rect)
+
         pygame.display.flip()
         pygame.time.Clock().tick(client.framerate)
         gevent.sleep(0)
