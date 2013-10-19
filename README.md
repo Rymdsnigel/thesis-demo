@@ -20,6 +20,12 @@ An arbitrary number of clients can be started. Port, framerate, x, y, and pos ne
 
 Each client will render a part of the animation.
 
+Running the server and two clients using script
+------------
+
+There is a included BASH-script to run a server and 2 clients
+    ./testrun_2clients.sh 
+
 Depencencies
 -----------
 Python
