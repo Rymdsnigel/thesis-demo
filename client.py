@@ -31,7 +31,7 @@ import tween
 from implementations.ntpversion import NTPClient as Client
 
 
-logger = logging.getLogger('test')
+logger = logging.getLogger('client')
 logger.setLevel(logging.DEBUG)
 ch = logging.FileHandler(filename='synclog.log')
 ch.setLevel(logging.DEBUG)
@@ -88,6 +88,8 @@ def render(client):
         val = ((1 + math.cos(client.get_tick()/250.0))/2)*client.height
         pos = (0, val - rect.top)
         rect = rect.move(pos)
+        if (client.get_tick() % 1000) == 0:             #what im trying to see is how the main animation syncs
+            color_animation.logger.info("Main animation event")
         screen.fill((0, 0, 0))
         pygame.draw.rect(screen, color, rect)
         pygame.display.flip()

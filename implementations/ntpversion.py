@@ -9,14 +9,10 @@ from transports.sockets import ServerTransport, ClientTransport
 
 latencies = []
 max_latency = 0
-logger = logging.getLogger('test')
+max_accepted_latency = 50
+logger = logging.getLogger('client')
 
 class NTPServer(ServerTransport):
-    # From NTP:
-    # t_0 is the time of the request packet transmission
-    # t_1 is the time of the request packet reception,
-    # t_2 is the time of the response packet transmission
-    # t_3 is the time of the response packet reception.
 
     def send_synchronize(self):
         self.t_0 = pygame.time.get_ticks()      #this is not the actual time we send this, just the time we put it on the queue
@@ -32,11 +28,9 @@ class NTPServer(ServerTransport):
         self.t_2 = data["sent_at"]
         self.delta = ((self.t_1 - self.t_0) + (self.t_2 - self.t_3))/2
         client_delta = data["delta"]
-        client_processing_time = self.t_2 - self.t_1
-        self.latency = ((self.t_3 - self.t_0)/2)
-        #logging.getLogger("fisk").info("Server: t0: %r, t1: %r, t2: %r t3: %r " % (self.t_0, self.t_1, self.t_2, self.t_3))
+        #client_processing_time = self.t_2 - self.t_1
+        self.latency = (self.t_3 - self.t_0)/2
         self.handle_max_latency()
-        logging.getLogger('fisk').debug("Server: updating client %s latency: (%r - %r)/2 =  %s and max latency: %s  t1: %r, t2: %r " %(self.client_id, self.t_3, self.t_0, self.latency, max_latency, self.t_1, self.t_2))
         if (client_delta == 0) or (abs(client_delta - self.delta) > 2):
             gevent.sleep(0)
             self.send_synchronize()
@@ -44,8 +38,9 @@ class NTPServer(ServerTransport):
 
     def handle_max_latency(self):
         global max_latency
-        if self.latency > 50:
-            latencies.insert(self.client_id - 1, 50)
+        global max_accepted_latency
+        if self.latency > max_accepted_latency:
+            latencies.insert(self.client_id - 1, max_accepted_latency)
         else:
             latencies.insert(self.client_id - 1, self.latency)
         max_latency = max(latencies)
@@ -70,7 +65,6 @@ class NTPClient(ClientTransport):
                     self.handle_render_event(data_struct)
             except JSONDecodeError as e:
                 pass
-                #print e
 
     def handle_synchronize(self, data):
         t_1 = self.last_incoming
@@ -78,8 +72,7 @@ class NTPClient(ClientTransport):
             self.handle_handshake(data["client_id"])
         self.delta = data["delta"]
         t_2 = pygame.time.get_ticks()
-        evnt = event.create_sync_event(self.client_id, t_1, t_2, self.delta)
-        self.send_packet(evnt)
+        self.send_packet(event.create_sync_event(self.client_id, t_1, t_2, self.delta))
 
     def handle_latency(self, data):
         self.latency = data["latency"]
@@ -90,10 +83,8 @@ class NTPClient(ClientTransport):
             else:
                 self.applied_latency = abs(self.max_latency - self.latency)
         if self.latency > 50:
-            print "latency bigger than 50"
             self.skip = self.latency - 50
             self.applied_latency  = 0
-
         self.logger.info("Client applied latency: %r" % self.applied_latency)
 
     def handle_handshake(self, client_id):

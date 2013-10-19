@@ -15,11 +15,11 @@ class ServerTransport(gevent.Greenlet):
         self.conn = conn
         self.delta = delta
         self.queue = Queue()
-        self.logger = logging.getLogger('fisk')
+        self.logger = logging.getLogger('server')
         self.t_0 = 0
 
     def _run(self):
-        self.send_synchronize()
+        #self.send_synchronize()
         while True:
             if not self.queue.empty():
                 evnt = self.queue.get()
@@ -101,7 +101,7 @@ class ClientTransport(gevent.Greenlet):
         self.pos = pos
         self.skip = 0
         self.applied_latency = 0
-        self.logger = logging.getLogger("test")
+        self.logger = logging.getLogger("client")
         self.last_incoming = None
 
     # Connect to server
@@ -111,9 +111,7 @@ class ClientTransport(gevent.Greenlet):
         self.s.bind(('', self.client_port))
         self.s.connect((self.host, self.port))
         while True:
-            #self.logger.info("Client before recv")
             data = self.s.recv(1024)
-            #self.logger.info("Client after recv, data: %s", data)
             self.last_incoming = pygame.time.get_ticks()
             self.handle_incoming(data)
             gevent.sleep(0)

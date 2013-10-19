@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # Server sending events to client
 import pygame
 import logging
@@ -7,7 +6,7 @@ import event
 from implementations.ntpversion import NTPServer as ServerAlgo
 from transports.sockets import SocketServer
 
-logger = logging.getLogger('fisk')
+logger = logging.getLogger('server')
 logger.setLevel(logging.DEBUG)
 ch = logging.FileHandler(filename='synclog.log')
 ch.setLevel(logging.DEBUG)
@@ -16,13 +15,14 @@ ch.setFormatter(formatter)
 logger.addHandler(ch)
 
 
-# Handle pygame-inputs
 def renderloop(server):
 
     # Setup pygame
     screen = pygame.display.set_mode((300, 300))
     pygame.display.set_caption("server generating events")
     pygame.init()
+
+    # Handle pygame-inputs
     while True:
         e = pygame.event.poll()
         pygame.event.get()
@@ -44,7 +44,7 @@ def renderloop(server):
         gevent.sleep(0)
 
 # Running the server
-server = SocketServer('', 5007, ServerAlgo)
+server = SocketServer('localhost', 5007, ServerAlgo)
 gevent.spawn(renderloop, server)
 server.serve_forever()
 

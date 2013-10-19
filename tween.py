@@ -5,7 +5,7 @@ class Tween(object):
 
     def __init__(self, *args, **kwargs):
         self.running = False
-        self.logger = logging.getLogger('test')
+        self.logger = logging.getLogger('client')
 
 
     def play(self, start, end, time=1000.0, reverse=False, interpolation=None, timestamp=None, skip=0):
@@ -20,11 +20,10 @@ class Tween(object):
         self.increasing = (end>start)
         self.running = True
         self.skip = skip
-        self.timestamp = timestamp - skip
-        self.logger.info("Client animation started, time for animation: " + str(self.time))
+        self.timestamp = timestamp - skip  # this will result in frameskipping if skip is not 0
+        self.logger.info("Event animation started")
 
     def step(self, current_time):
-    #todo frameskip time in skip
         if self.running :
             diff = current_time - self.timestamp
             self.value += diff * self.timestep
